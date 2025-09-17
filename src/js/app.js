@@ -1,9 +1,9 @@
 import SubscriptionApi from '../components/SubscriptionAPI';
 import createElementLI, { creatingMessageElement } from './createElement';
 
-let user;
-
 document.addEventListener('DOMContentLoaded', () => {
+  let user;
+  const serverUrl = 'http://localhost:7070/';
   const communicationWindow = document.querySelector('.communication-window');
   communicationWindow.style.opacity = '0.1';
 
@@ -20,20 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     user = nickname.value;
 
-    api.add({ name: user }).then(
+    api.add({ user }).then(
       () => {
+        // юзер уже добавлен, но нужно сменить его имя на you
         const niknameItem = Array.from(windowSubscribers.children)
           .find((item) => item.textContent === user);
-
         niknameItem.textContent = 'You';
         niknameItem.style.color = '#ffd300';
         nickname.value = '';
         communicationWindow.style.opacity = '1';
         wrapperNicknameForm.classList.add('display-hide');
       },
-      (reject) => {
-        console.log(reject);
-
+      () => {
         formValidator.textContent = `Никнейм ${user} уже занят, введите другой`;
       },
     );
@@ -60,13 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   eventSource.addEventListener('message', (e) => {
-    console.log(e);
+    // console.log(e);
 
     const { name } = JSON.parse(e.data);
 
     createElementLI(name);
 
-    console.log('sse message');
+    // console.log('sse message');
   });
 
   const ws = new WebSocket('ws://localhost:7070/ws');
@@ -111,8 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   ws.addEventListener('message', (e) => {
-    console.log(e);
-
     const data = JSON.parse(e.data);
 
     const { chat: messages } = data;
@@ -122,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     creatingMessageElement(messagesItem.message, messagesItem.client, messagesItem.date, user);
   });
 
-  window.api = new SubscriptionApi('http://localhost:7070/');
+  window.api = new SubscriptionApi(serverUrl);
 
   window.addEventListener('beforeunload', () => {
     api.remove(user);

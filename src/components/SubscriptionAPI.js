@@ -3,13 +3,13 @@ export default class SubscriptionApi {
     this.apiUrl = apiUrl;
   }
 
-  async add(user) {
+  async add({ user }) {
     const request = await fetch(`${this.apiUrl}subscriptions/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(user),
+      body: JSON.stringify({ name: user }),
     });
 
     const result = await request;
@@ -26,7 +26,6 @@ export default class SubscriptionApi {
   }
 
   async getSubscribers() {
-    console.log('hi');
     const request = await fetch(`${this.apiUrl}subscriptions/full`, {
       method: 'GET',
     });
@@ -34,7 +33,7 @@ export default class SubscriptionApi {
     const result = await request;
 
     if (!result.ok) {
-      console.error('Ошибка!');
+      // console.error('Ошибка!');
     }
 
     const json = await result.json();
@@ -43,7 +42,6 @@ export default class SubscriptionApi {
   }
 
   async remove(user) {
-    console.log('hi');
     const query = `subscriptions/${encodeURIComponent(user)}`;
 
     const request = await fetch(this.apiUrl + query, {
