@@ -7,12 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const communicationWindow = document.querySelector('.communication-window');
   communicationWindow.style.opacity = '0.1';
 
-  const wrapperNicknameForm = document.querySelector('.wrapper-nickname-entry-form');
+  const wrapperNicknameForm = document.querySelector(
+    '.wrapper-nickname-entry-form',
+  );
   wrapperNicknameForm.style.opacity = '1';
 
-  const formValidator = wrapperNicknameForm.querySelector('.nickname-form-validator');
+  const formValidator = wrapperNicknameForm.querySelector(
+    '.nickname-form-validator',
+  );
   const nickname = document.querySelector('.nickname-input-field');
-  const nicknameSendingButton = document.querySelector('.nickname-entry-form-button');
+  const nicknameSendingButton = document.querySelector(
+    '.nickname-entry-form-button',
+  );
   const windowSubscribers = document.querySelector('.subscriptions');
 
   nicknameSendingButton.addEventListener('click', (e) => {
@@ -22,8 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     api.add({ user }).then(
       () => {
-        const niknameItem = Array.from(windowSubscribers.children)
-          .find((item) => item.textContent === user);
+        const niknameItem = Array.from(windowSubscribers.children).find(
+          (item) => item.textContent === user,
+        );
         niknameItem.textContent = 'You';
         niknameItem.style.color = '#ffd300';
         nickname.value = '';
@@ -41,11 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
   eventSource.addEventListener('open', (e) => {
     console.log(e);
 
-    api.getSubscribers().then(
-      (result) => result.forEach((item) => {
-        createElementLI(item.name);
-      }),
-    );
+    api.getSubscribers().then((result) => result.forEach((item) => {
+      createElementLI(item.name);
+    }));
 
     console.log('sse open');
   });
@@ -110,7 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const messagesItem = messages[0];
 
-    creatingMessageElement(messagesItem.message, messagesItem.client, messagesItem.date, user);
+    creatingMessageElement(
+      messagesItem.message,
+      messagesItem.client,
+      messagesItem.date,
+      user,
+    );
   });
 
   window.api = new SubscriptionApi(serverUrl);
