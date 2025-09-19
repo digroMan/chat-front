@@ -13,8 +13,6 @@ function formatDate(date) {
 export default function createElementLI(content) {
   const arr = Array.from(subscriptions.children);
   const index = arr.findIndex((item) => item.textContent === content);
-  console.log(content);
-  console.log(arr);
 
   if (index !== -1) {
     subscriptions.removeChild(subscriptions.children[index]);

@@ -33,7 +33,7 @@ export default class SubscriptionApi {
     const result = await request;
 
     if (!result.ok) {
-      // console.error('Ошибка!');
+      console.error('Ошибка!');
     }
 
     const json = await result.json();

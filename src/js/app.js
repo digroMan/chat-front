@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     api.add({ user }).then(
       () => {
-        // юзер уже добавлен, но нужно сменить его имя на you
         const niknameItem = Array.from(windowSubscribers.children)
           .find((item) => item.textContent === user);
         niknameItem.textContent = 'You';
@@ -58,13 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   eventSource.addEventListener('message', (e) => {
-    // console.log(e);
-
     const { name } = JSON.parse(e.data);
 
     createElementLI(name);
-
-    // console.log('sse message');
   });
 
   const ws = new WebSocket('ws://localhost:7070/ws');
