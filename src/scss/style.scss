@@ -1,0 +1,169 @@
+@use './mixin.scss' as *;
+
+.hide{
+    display: none !important;
+}
+
+.chat {
+    display: flex;
+    justify-content: center;
+    margin: 25px auto;
+    width: 500px;
+
+    // .chat__wrapper
+    &__wrapper {
+        position: relative;
+        height: 250px;
+        width: 250px;
+        padding: 5px;
+        border-radius: 5px;
+        border-top-left-radius: 0;
+        background-color: rgba(145, 164, 201, 0.921);
+    }
+
+    // .chat__container
+    &__container {
+        overflow-y: auto;
+        max-height: 200px;
+    }
+
+    // .chat__messages
+    &__messages {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.subscription {
+
+    // .subscription__list
+    &__list {
+        padding: 7px;
+        height: fit-content;
+        background-color: rgba(145, 164, 201, 0.921);
+
+        border-radius: 5px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.create-message {
+    width: 250px;
+    position: absolute;
+    bottom: 0px;
+
+    // .create-message__input
+    &__input {
+        box-sizing: border-box;
+        width: 100%;
+        height: 20px;
+        margin-bottom: 2px;
+
+        border: 0;
+        border-radius: 2px;
+
+        background-color: #ffffff;
+
+        &:focus {
+            outline: 2px solid #ffd300;
+
+        }
+    }
+
+    // .create-message__button
+    &__button {
+        margin: 6px auto 0;
+        padding: 3px 4px;
+        margin: 3px auto 5px;
+
+        border: none;
+        border-radius: 3px;
+
+        background-color: #ffd300;
+        font: normal 600 12px Helvetica;
+        color: #ffffff;
+
+        &:focus {
+            outline: none;
+
+        }
+    }
+}
+
+.modal {
+    position: fixed;
+    left:0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
+    // .modal__content
+    &__content{
+        padding: 6px;
+    
+        width: 200px;
+        border: none;
+        border-radius: 5px;
+    
+        background-color: rgba(145, 164, 201, 0.921);
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
+    // .form__label
+    &__label {
+        display: block;
+        margin: 0 auto;
+        font: normal 400 14px Helvetica;
+    }
+
+    // .form__input
+
+    &__input {
+        height: 20px;
+
+        margin-top: 5px;
+
+        border: 0;
+        border-radius: 2px;
+
+        background-color: #ffffff;
+
+        &:focus {
+            outline: 2px solid #ffd300;
+        }
+    }
+
+    // .form__button
+
+    &__button {
+        margin: 6px auto 0;
+        padding: 5px;
+        border: none;
+        border-radius: 3px;
+        background-color: #ffd300;
+        font: normal 600 12px Helvetica;
+        color: #ffffff;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    // .form__validator
+
+    &__validator {
+        margin: 3px;
+        font: normal 200 13px Helvetica;
+    }
+}

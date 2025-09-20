@@ -1,0 +1,156 @@
+@use './mixin.scss' as *;
+
+html {
+    scroll-behavior: smooth;
+    font-weight: 400;
+    font-size: 16px;
+
+    @include nlg {
+        font-size: 13px;
+    }
+
+    @include nlgs {
+        font-size: 11px;
+    }
+
+    @include nmd {
+        font-size: 9px;
+    }
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    background: #fff;
+    color: #fff;
+}
+
+article,
+aside,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+    list-style: outside none;
+}
+
+li {
+    list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    outline: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    outline: 0;
+    border: 0;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+.main-wrapper {
+    max-width: 1920px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+
+.main-wrapper section {
+    box-sizing: border-box;
+}
+
+figure,
+figcaption {
+    margin: 0;
+    padding: 0;
+}
+
+.section {
+    max-width: 1920px;
+    width: 100%;
+    min-height: 900px;
+    margin: auto;
+    font-family: Ubuntu, sans-serif;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    @include nlg {
+        min-height: auto;
+    }
+
+    @include nsm {
+        min-height: unset;
+    }
+}
+
+.container-box {
+    width: 1230px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    @include nlg {
+        width: 1023px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    @include nmd {
+        width: 708px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    @include nsm {
+        width: 100%;
+        padding: 0 3%;
+    }
+}

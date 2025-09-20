@@ -1,6 +1,6 @@
-const subscriptions = document.querySelector('.subscriptions');
-const chat = document.querySelector('.chat');
-const chatContainer = document.querySelector('.chat-container');
+const subscriptions = document.querySelector('.subscription__list');
+const chatMessages = document.querySelector('.chat__messages');
+const chatContainer = document.querySelector('.chat__container');
 
 function formatDate(date) {
   return `${date.getHours()}:${
@@ -53,6 +53,6 @@ export function creatingMessageElement(content, user, date, client) {
     userMessage.classList.add('msg');
   }
 
-  chat.appendChild(userMessage);
+  chatMessages.appendChild(userMessage);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }

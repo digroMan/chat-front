@@ -4,22 +4,22 @@ import createElementLI, { creatingMessageElement } from './createElement';
 document.addEventListener('DOMContentLoaded', () => {
   let user;
   const serverUrl = 'http://localhost:7070/';
-  const communicationWindow = document.querySelector('.communication-window');
+  const communicationWindow = document.querySelector('.chat');
   communicationWindow.style.opacity = '0.1';
 
   const wrapperNicknameForm = document.querySelector(
-    '.wrapper-nickname-entry-form',
+    '.modal',
   );
   wrapperNicknameForm.style.opacity = '1';
 
   const formValidator = wrapperNicknameForm.querySelector(
-    '.nickname-form-validator',
+    '.__js-nickname-validator',
   );
-  const nickname = document.querySelector('.nickname-input-field');
+  const nickname = document.querySelector('.__js-nickname-input');
   const nicknameSendingButton = document.querySelector(
-    '.nickname-entry-form-button',
+    '.__js-nickname-button',
   );
-  const windowSubscribers = document.querySelector('.subscriptions');
+  const windowSubscribers = document.querySelector('.subscription__list');
 
   nicknameSendingButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         niknameItem.style.color = '#ffd300';
         nickname.value = '';
         communicationWindow.style.opacity = '1';
-        wrapperNicknameForm.classList.add('display-hide');
+        wrapperNicknameForm.classList.add('hide');
       },
       () => {
         formValidator.textContent = `Никнейм ${user} уже занят, введите другой`;
@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ws = new WebSocket('ws://localhost:7070/ws');
 
-  const chatMessage = document.querySelector('.chat-message');
-  const chatSend = document.querySelector('.chat-send');
+  const chatMessage = document.querySelector('.create-message__input');
+  const chatSend = document.querySelector('.create-message__button');
 
   chatSend.addEventListener('click', () => {
     const text = chatMessage.value;

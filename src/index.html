@@ -1,50 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <main>
-        <div class="wrapper-nickname-entry-form">
-            <form action="" class="nickname-entry-form">
-                <label for="" class="nickname-entry-form-header">Введите никнейм</label>
-                <input type="text" class="nickname-input-field">
-                <button class="nickname-entry-form-button">Продолжить</button>
-            </form>
-            <div class="nickname-form-validator">
-    
-            </div>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+  </head>
+  <body>
+    <section class="section">
+      <div class="chat container-box">
+        <div class="subscription">
+          <ul class="subscription__list"></ul>
         </div>
-    
-        <div class="communication-window">
-    
-            <div class="subscriptions-wrapper">
-                <ul class="subscriptions">
 
-                </ul>
-            </div>
-    
-            <div class="chat-wrapper">
-                <div class="chat-container">
-                    <div class="chat">
+        <div class="chat__wrapper">
+          <div class="chat__container">
+            <div class="chat__messages"></div>
+          </div>
 
-                    </div>
-                </div>
-                
-                <div class="chat-wrapper-field-msg-btn">
-                    <input class="chat-message"/>
-    
-                    <button class="chat-send">Отправить</button>
-                </div>
-                
-            </div>
-            
+          <!-- TODO: заменить на form ??? -->
+          <div class="create-message">
+            <input class="create-message__input" />
+
+            <button class="create-message__button">Отправить</button>
+          </div>
         </div>
-    
+      </div>
+    </section>
 
-    </main>
-</body>
+    <div class="modal">
+      <div class="modal__content">
+        <form action="" class="form">
+          <label for="" class="form__label"
+            >Введите никнейм</label
+          >
+          <input type="text" class="form__input __js-nickname-input" />
+          <button class="form__button __js-nickname-button">Продолжить</button>
+        </form>
+        <div class="form__validator __js-nickname-validator"></div>
+      </div>
+    </div>
+  </body>
 </html>

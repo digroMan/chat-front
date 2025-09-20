@@ -6,11 +6,12 @@ module.exports = {
   mode: 'development',
   devServer: {
     port: 9000,
+    watchFiles: ['src/index.html', 'src/scss/style.scss'],
   },
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: '[name][ext]', // переместить в корневую папку
+    assetModuleFilename: path.join('asset', '[name].[contenthash][ext]'),
   },
   module: {
     rules: [
@@ -30,15 +31,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader, 'css-loader',
-        ],
+        test: /\.(scss|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|svg|jpg|jpeg|cur|gif)$/i,
-        type: 'asset/resource', // т.е. вышележащие файлы нужно поместить в папку ресурсы asset
-      // Привило загрузки asset/resource работает в паре с параметром output assetModuleFilename
+        type: 'asset/resource',
       },
     ],
   },
