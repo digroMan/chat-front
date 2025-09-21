@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ws = new WebSocket('ws://localhost:7070/ws');
 
-  const chatMessage = document.querySelector('.create-message__input');
+  const chatMessage = document.querySelector('.__js-create-message-input');
   const chatSend = document.querySelector('.create-message__button');
 
   chatSend.addEventListener('click', () => {
