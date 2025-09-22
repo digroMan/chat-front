@@ -18,18 +18,9 @@
             <div class="chat__messages"></div>
           </div>
 
-          <!-- TODO: заменить на form ??? -->
-          <div class="create-message">
-            <!-- <input class="create-message__input" /> -->
-
-            <button class="create-message__button">Отправить</button>
-          </div>
-
-          <!-- TODO: меняю на form ??? -->
-          <form action="" class="form">
-            <input type="text" class="form__input __js-create-message-input" />
-            <button class="form__button __js-nickname-button">Продолжить</button>
-            <div class="form__validator __js-nickname-validator"></div>
+          <form action="" class="form form_stick-bottom __js-create-message">
+            <input type="text" class="form__input" />
+            <button type="submit" class="form__button form__button_left">Отправить</button>
           </form>
 
         </div>
@@ -38,13 +29,13 @@
 
     <div class="modal">
       <div class="modal__content">
-        <form action="" class="form">
+        <form action="" class="form __js-nickname">
           <label for="" class="form__label"
             >Введите никнейм</label
           >
-          <input type="text" class="form__input __js-nickname-input" />
-          <button class="form__button __js-nickname-button">Продолжить</button>
-          <div class="form__validator __js-nickname-validator"></div>
+          <input type="text" class="form__input" />
+          <button class="form__button">Продолжить</button>
+          <div class="form__validator"></div>
         </form>
       </div>
     </div>

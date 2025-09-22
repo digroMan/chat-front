@@ -1,6 +1,6 @@
 @use './mixin.scss' as *;
 
-.hide{
+.hide {
     display: none !important;
 }
 
@@ -48,52 +48,9 @@
     }
 }
 
-.create-message {
-    width: 250px;
-    position: absolute;
-    bottom: 0px;
-
-    // .create-message__input
-    &__input {
-        box-sizing: border-box;
-        width: 100%;
-        height: 20px;
-        margin-bottom: 2px;
-
-        border: 0;
-        border-radius: 2px;
-
-        background-color: #ffffff;
-
-        &:focus {
-            outline: 2px solid #ffd300;
-
-        }
-    }
-
-    // .create-message__button
-    &__button {
-        margin: 6px auto 0;
-        padding: 3px 4px;
-        margin: 3px auto 5px;
-
-        border: none;
-        border-radius: 3px;
-
-        background-color: #ffd300;
-        font: normal 600 12px Helvetica;
-        color: #ffffff;
-
-        &:focus {
-            outline: none;
-
-        }
-    }
-}
-
 .modal {
     position: fixed;
-    left:0;
+    left: 0;
     top: 0;
     right: 0;
     bottom: 0;
@@ -103,15 +60,15 @@
     align-items: center;
     justify-content: center;
 
-    
+
     // .modal__content
-    &__content{
+    &__content {
         padding: 6px;
-    
+
         width: 200px;
         border: none;
         border-radius: 5px;
-    
+
         background-color: rgba(145, 164, 201, 0.921);
     }
 }
@@ -119,6 +76,12 @@
 .form {
     display: flex;
     flex-direction: column;
+
+    // .form_stick-bottom
+    &_stick-bottom {
+        position: absolute;
+        bottom: 0px;
+    }
 
     // .form__label
     &__label {
@@ -128,11 +91,8 @@
     }
 
     // .form__input
-
     &__input {
         height: 20px;
-
-        margin-top: 5px;
 
         border: 0;
         border-radius: 2px;
@@ -145,7 +105,6 @@
     }
 
     // .form__button
-
     &__button {
         margin: 6px auto 0;
         padding: 5px;
@@ -155,13 +114,18 @@
         font: normal 600 12px Helvetica;
         color: #ffffff;
 
+        // .form__button_left
+        &_left {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
         &:focus {
             outline: none;
         }
     }
 
     // .form__validator
-
     &__validator {
         margin: 3px;
         font: normal 200 13px Helvetica;

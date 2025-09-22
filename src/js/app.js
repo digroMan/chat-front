@@ -15,16 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const formValidator = wrapperNicknameForm.querySelector(
     '.__js-nickname-validator',
   );
-  const nickname = document.querySelector('.__js-nickname-input');
-  const nicknameSendingButton = document.querySelector(
-    '.__js-nickname-button',
-  );
+  const nicknameForm = document.querySelector('.__js-nickname');
+  const nicknameInput = nicknameForm.querySelector('.form__input')
   const windowSubscribers = document.querySelector('.subscription__list');
 
-  nicknameSendingButton.addEventListener('click', (e) => {
+  nicknameForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    user = nickname.value;
+    user = nicknameInput.value;
 
     api.add({ user }).then(
       () => {
@@ -33,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         niknameItem.textContent = 'You';
         niknameItem.style.color = '#ffd300';
-        nickname.value = '';
+        nicknameInput.value = '';
         communicationWindow.style.opacity = '1';
         wrapperNicknameForm.classList.add('hide');
       },
@@ -69,10 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ws = new WebSocket('ws://localhost:7070/ws');
 
-  const chatMessage = document.querySelector('.__js-create-message-input');
-  const chatSend = document.querySelector('.create-message__button');
+  const chatForm = document.querySelector('.__js-create-message');
+  const chatMessage = chatForm.querySelector('.form__input');
 
-  chatSend.addEventListener('click', () => {
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     const text = chatMessage.value;
 
     if (!text) return;
