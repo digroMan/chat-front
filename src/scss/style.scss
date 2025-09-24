@@ -1,50 +1,109 @@
 @use './mixin.scss' as *;
+@use './variables.scss' as *;
 
 .hide {
     display: none !important;
 }
 
 .chat {
+    position: relative;
+    box-sizing: border-box;
+    width: 908px;
+    height: 583px;
+    padding: 64px;
+    margin: auto;
+    background-color: $colorUnwhite;
+    box-shadow: $shadowBox;
+    border-radius: 16px;
     display: flex;
-    justify-content: center;
-    margin: 25px auto;
-    width: 500px;
-
-    // .chat__wrapper
-    &__wrapper {
-        position: relative;
-        height: 250px;
-        width: 250px;
-        padding: 5px;
-        border-radius: 5px;
-        border-top-left-radius: 0;
-        background-color: rgba(145, 164, 201, 0.921);
-    }
+    flex-direction: column;
+    justify-content: end;
+    row-gap: 20px;
 
     // .chat__container
     &__container {
         overflow-y: auto;
-        max-height: 200px;
+        // max-height: 200px;
     }
 
     // .chat__messages
     &__messages {
         display: flex;
         flex-direction: column;
+        row-gap: 30px;
+        font-family: $fontUbuntu;
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+
+    // .chat__message-item
+    &__message-item {
+        width: fit-content;
+        border-bottom: solid 1px $colorGrey3Cool;
+
+        // .chat__message-item_user
+        &_user{
+            align-self: flex-end;
+            text-align: right;
+        }
+    }
+
+    // .chat__message-nickname
+    &__message-nickname {
+        color: $colorGrey3Cool;
+    }
+
+    // .chat__message-time
+    &__message-time {
+        color: $colorGrey3Cool;
+    }
+
+    // .chat__message
+    &__message {
+        color: $colorBlackCool;
+        font-weight: 500;
     }
 }
 
 .subscription {
+    width: fit-content;
+    text-align: right;
+
+    // .subscription_position
+    &_position {
+        position: absolute;
+        transform: translate(-50%, 0%);
+        top: 0%;
+        left: -7%;
+        box-shadow: $shadowBox;
+        background-color: $colorUnwhite;
+        border-radius: 16px;
+    }
 
     // .subscription__list
     &__list {
-        padding: 7px;
         height: fit-content;
-        background-color: rgba(145, 164, 201, 0.921);
+        padding-inline: 16px;
+        padding-block: 16px;
+    }
 
-        border-radius: 5px;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+    // .subscription__item
+    &__item {
+        margin-bottom: 5px;
+        font-family: $fontUbuntu;
+        font-size: 16px;
+        font-weight: 500;
+        color: $colorGrey2Cool;
+
+        // .subscription__item_user
+        &_user {
+            color: $colorBlue1;
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
     }
 }
 
@@ -60,59 +119,113 @@
     align-items: center;
     justify-content: center;
 
+    background: #ffffffd4;
 
     // .modal__content
     &__content {
-        padding: 6px;
+        padding: 16px;
 
-        width: 200px;
         border: none;
-        border-radius: 5px;
+        border-radius: 16px;
 
-        background-color: rgba(145, 164, 201, 0.921);
+        background-color: $colorUnwhite;
+        box-shadow: $shadowBox;
+
+        // .modal__content_nickname
+        &_nickname {
+            width: 300px;
+        }
     }
+
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
 
-    // .form_stick-bottom
-    &_stick-bottom {
-        position: absolute;
-        bottom: 0px;
+    // .form_flex
+    &_flex {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 13px;
+    }
+
+    // .form__fieldset
+
+    &__fieldset {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 13px;
+        border: none;
     }
 
     // .form__label
     &__label {
-        display: block;
-        margin: 0 auto;
-        font: normal 400 14px Helvetica;
+        margin: auto;
+        margin-bottom: 13px;
+        font-family: $fontUbuntu;
+        font-size: 16px;
+        font-weight: 500;
+        color: $colorBlackCool;
+        text-transform: uppercase;
     }
 
     // .form__input
     &__input {
-        height: 20px;
+        height: 35px;
+
+        font-family: $fontUbuntu;
+        font-weight: 400;
+        line-height: 1.5;
+        font-size: 16px;
 
         border: 0;
         border-radius: 2px;
-
-        background-color: #ffffff;
+        background-color: $colorUnwhite;
+        border-bottom: solid 1px $colorGrey3Cool;
 
         &:focus {
-            outline: 2px solid #ffd300;
+            outline: none;
+        }
+
+        &::placeholder {
+            color: $colorGrey3Cool;
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        // .form__input_error
+        &_error {
+            border-bottom: solid 1px $colorError;
+
+            &::placeholder {
+                color: $colorError;
+            }
+        }
+
+        // .form__input_align-center
+        &_align-center {
+            text-align: center;
+        }
+
+        // .form__input_full-width
+        &_full-width {
+            width: 100%;
         }
     }
 
     // .form__button
     &__button {
-        margin: 6px auto 0;
-        padding: 5px;
+        width: fit-content;
+        display: block;
+        margin: auto;
+        padding: 11px 16px;
         border: none;
-        border-radius: 3px;
-        background-color: #ffd300;
-        font: normal 600 12px Helvetica;
-        color: #ffffff;
+        background-color: $colorBlue1;
+        font-family: $fontUbuntu;
+        font-weight: 500;
+        color: $colorUnwhite;
+        text-transform: uppercase;
+        transition: transform linear 0.15s;
 
         // .form__button_left
         &_left {
@@ -123,11 +236,34 @@
         &:focus {
             outline: none;
         }
+
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
     }
 
     // .form__validator
     &__validator {
-        margin: 3px;
-        font: normal 200 13px Helvetica;
+        font-family: $fontUbuntu;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: $colorError;
+    }
+
+    // .form__validator-container
+    &__validator-container {
+        display: flex;
+        align-items: center;
+    }
+
+    // .form__svg 
+    &__svg {
+        width: 36px;
+        height: auto;
     }
 }

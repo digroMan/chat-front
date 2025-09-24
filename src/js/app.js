@@ -1,130 +1,138 @@
-import SubscriptionApi from '../components/SubscriptionAPI';
-import createElementLI, { creatingMessageElement } from './createElement';
+import { changeNickname } from './creatingElements';
+import { GLOBAL_STATE, setUserName } from './store';
+import { toggleClass, toggleHide } from './helpers';
+import { launchSSE, launchWS } from './services';
+import { SUBSCRIPTION, WS } from './constants';
 
 document.addEventListener('DOMContentLoaded', () => {
-  let user;
-  const serverUrl = 'http://localhost:7070/';
-  const communicationWindow = document.querySelector('.chat');
-  communicationWindow.style.opacity = '0.1';
-
-  const wrapperNicknameForm = document.querySelector(
-    '.modal',
-  );
-  wrapperNicknameForm.style.opacity = '1';
-
-  const formValidator = wrapperNicknameForm.querySelector(
-    '.__js-nickname-validator',
-  );
-  const nicknameForm = document.querySelector('.__js-nickname');
-  const nicknameInput = nicknameForm.querySelector('.form__input')
-  const windowSubscribers = document.querySelector('.subscription__list');
-
-  nicknameForm.addEventListener('submit', (e) => {
+  const submitNickname = (e) => {
     e.preventDefault();
+    const modal = document.querySelector('.modal');
+    const input = e.target.querySelector('.form__input');
+    const validator = e.target.querySelector('.form__validator');
+    const userName = input.value;
 
-    user = nicknameInput.value;
+    if (!userName) {
+      toggleClass({
+        element: input,
+        className: 'form__input_error',
+        isRemove: false,
+      });
+      toggleHide({ element: validator, hide: false });
+      validator.textContent = 'Введите никнейм';
+      return;
+    }
 
-    api.add({ user }).then(
+    // TODO: добавить DOMPurify??
+
+    SUBSCRIPTION.add({ user: userName }).then(
       () => {
-        const niknameItem = Array.from(windowSubscribers.children).find(
-          (item) => item.textContent === user,
-        );
-        niknameItem.textContent = 'You';
-        niknameItem.style.color = '#ffd300';
-        nicknameInput.value = '';
-        communicationWindow.style.opacity = '1';
-        wrapperNicknameForm.classList.add('hide');
+        toggleHide({ element: validator, hide: true });
+        setUserName({ userName });
+        changeNickname({ userName: GLOBAL_STATE.userName });
+        e.target.reset();
+        toggleHide({ element: modal, hide: true });
       },
       () => {
-        formValidator.textContent = `Никнейм ${user} уже занят, введите другой`;
+        toggleHide({ element: validator, hide: false });
+        toggleClass({
+          element: input,
+          className: 'form__input_error',
+          isRemove: false,
+        });
+        validator.textContent = `Никнейм ${userName} уже занят, введите другой`;
+        e.target.reset();
       },
     );
-  });
+  };
 
-  const eventSource = new EventSource('http://localhost:7070/sse');
-
-  eventSource.addEventListener('open', (e) => {
-    console.log(e);
-
-    api.getSubscribers().then((result) => result.forEach((item) => {
-      createElementLI(item.name);
-    }));
-
-    console.log('sse open');
-  });
-
-  eventSource.addEventListener('error', (e) => {
-    console.log(e);
-
-    console.log('sse error');
-  });
-
-  eventSource.addEventListener('message', (e) => {
-    const { name } = JSON.parse(e.data);
-
-    createElementLI(name);
-  });
-
-  const ws = new WebSocket('ws://localhost:7070/ws');
-
-  const chatForm = document.querySelector('.__js-create-message');
-  const chatMessage = chatForm.querySelector('.form__input');
-
-  chatForm.addEventListener('submit', (e) => {
+  const submitMessage = (e) => {
     e.preventDefault();
-    const text = chatMessage.value;
+    const input = e.target.querySelector('.form__input');
+    const validatorContainer = e.target.querySelector(
+      '.form__validator-container',
+    );
+    const validator = e.target.querySelector('.form__validator');
+    const message = input.value;
 
-    if (!text) return;
+    if (!message) {
+      toggleClass({
+        element: input,
+        className: 'form__input_error',
+        isRemove: false,
+      });
+      toggleHide({ element: validatorContainer, hide: false });
+      validator.textContent = 'Нужно ввести сообщение';
+      return;
+    }
 
-    const date = new Date();
-
-    const msg = {
-      client: user,
-      message: text,
-      date: date.getTime(),
+    const messageItem = {
+      message,
+      client: GLOBAL_STATE.userName,
+      date: new Date().getTime(),
     };
 
-    ws.send(JSON.stringify(msg));
+    WS.send(JSON.stringify(messageItem));
 
-    chatMessage.value = '';
-  });
+    e.target.reset();
+  };
 
-  ws.addEventListener('open', (e) => {
-    console.log(e);
+  const handleSetNickname = () => {
+    const form = document.forms.nickname;
+    const input = form.querySelector('.form__input');
+    const validator = form.querySelector('.form__validator');
 
-    console.log('ws open');
-  });
+    const hideError = () => {
+      toggleHide({
+        element: validator,
+        hide: true,
+      });
+      toggleClass({
+        element: input,
+        className: 'form__input_error',
+        isRemove: true,
+      });
+    };
 
-  ws.addEventListener('close', (e) => {
-    console.log(e);
+    form.addEventListener('submit', submitNickname);
+    input.addEventListener('click', hideError);
+  };
 
-    console.log('ws close');
-  });
+  function handleCreateMessage() {
+    const form = document.forms['create-message'];
+    const input = form.querySelector('.form__input');
+    const errorContainer = form.querySelector('.form__validator-container');
 
-  ws.addEventListener('error', (e) => {
-    console.log(e);
+    const hideError = () => {
+      toggleHide({ element: errorContainer, hide: true });
+      toggleClass({
+        element: input,
+        className: 'form__input_error',
+        isRemove: true,
+      });
+    };
 
-    console.log('ws error');
-  });
+    form.addEventListener('submit', submitMessage);
+    input.addEventListener('click', hideError);
+  }
 
-  ws.addEventListener('message', (e) => {
-    const data = JSON.parse(e.data);
+  try {
+    if (document.forms.length === 0) throw new Error('отсутствуют формы на странице');
+    handleSetNickname();
+    handleCreateMessage();
+  } catch (error) {
+    console.warn(`Ошибка в инициализации форм: ${error.message}`);
+  }
 
-    const { chat: messages } = data;
-
-    const messagesItem = messages[0];
-
-    creatingMessageElement(
-      messagesItem.message,
-      messagesItem.client,
-      messagesItem.date,
-      user,
-    );
-  });
-
-  window.api = new SubscriptionApi(serverUrl);
+  try {
+    launchSSE();
+    launchWS();
+  } catch (error) {
+    console.warn('Ошибка в работе WS/SSE');
+  }
 
   window.addEventListener('beforeunload', () => {
-    api.remove(user);
+    if (!GLOBAL_STATE.userName) return;
+    SUBSCRIPTION.remove(GLOBAL_STATE.userName);
   });
 });

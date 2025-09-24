@@ -7,20 +7,28 @@
     <title>Chat</title>
   </head>
   <body>
-    <section class="section">
-      <div class="chat container-box">
-        <div class="subscription">
-          <ul class="subscription__list"></ul>
-        </div>
+    <section class="section section_subscription">
+      <div class="container-box">
+        
+        <div class="chat">
 
-        <div class="chat__wrapper">
-          <div class="chat__container">
-            <div class="chat__messages"></div>
+          <div class="subscription subscription_position">
+            <ul class="subscription__list"></ul>
           </div>
 
-          <form action="" class="form form_stick-bottom __js-create-message">
-            <input type="text" class="form__input" />
-            <button type="submit" class="form__button form__button_left">Отправить</button>
+          <div class="chat__container">
+            <ul class="chat__messages"></ul>
+          </div>
+
+          <form class="form form_flex" id="create-message">
+            <input class="form__input form__input_full-width" placeholder="Ваше сообщение" type="text"/>
+            <button class="form__button form__button_left" type="submit">Отправить</button>
+            <div class="form__validator-container hide">
+              <svg class="form__svg" width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.4952 37.4472C9.776 35.7867 8.40472 33.8005 7.46136 31.6045C6.518 29.4084 6.02145 27.0464 6.00068 24.6564C5.97991 22.2664 6.43534 19.8961 7.3404 17.684C8.24545 15.4719 9.58201 13.4621 11.2721 11.7721C12.9621 10.082 14.9719 8.74545 17.184 7.8404C19.3961 6.93534 21.7664 6.47991 24.1564 6.50068C26.5464 6.52145 28.9084 7.018 31.1045 7.96136C33.3005 8.90472 35.2867 10.276 36.9472 11.9952C40.226 15.39 42.0403 19.9369 41.9993 24.6564C41.9583 29.3759 40.0653 33.8906 36.7279 37.2279C33.3906 40.5653 28.8759 42.4583 24.1564 42.4993C19.4369 42.5403 14.89 40.726 11.4952 37.4472ZM14.0332 34.9092C16.7352 37.6112 20.3999 39.1292 24.2212 39.1292C28.0424 39.1292 31.7072 37.6112 34.4092 34.9092C37.1112 32.2072 38.6292 28.5424 38.6292 24.7212C38.6292 20.8999 37.1112 17.2352 34.4092 14.5332C31.7072 11.8312 28.0424 10.3132 24.2212 10.3132C20.3999 10.3132 16.7352 11.8312 14.0332 14.5332C11.3312 17.2352 9.81318 20.8999 9.81318 24.7212C9.81318 28.5424 11.3312 32.2072 14.0332 34.9092ZM31.8532 19.6272L26.7592 24.7212L31.8532 29.8152L29.3152 32.3532L24.2212 27.2592L19.1272 32.3532L16.5892 29.8152L21.6832 24.7212L16.5892 19.6272L19.1272 17.0892L24.2212 22.1832L29.3152 17.0892L31.8532 19.6272Z" fill="#C71938"/>
+              </svg>                
+              <p class="form__validator"></p>
+            </div>
           </form>
 
         </div>
@@ -28,14 +36,16 @@
     </section>
 
     <div class="modal">
-      <div class="modal__content">
-        <form action="" class="form __js-nickname">
-          <label for="" class="form__label"
-            >Введите никнейм</label
-          >
-          <input type="text" class="form__input" />
-          <button class="form__button">Продолжить</button>
-          <div class="form__validator"></div>
+      <div class="modal__content modal__content_nickname">
+        <form class="form" id="nickname">
+          <fieldset class="form__fieldset">
+            <label for="" class="form__label"
+              >Введите никнейм</label
+            >
+            <input class="form__input form__input_align-center" placeholder="Ваше имя в сети" type="text"/>
+            <p class="form__validator hide"></p>
+          </fieldset>
+          <button class="form__button" type="submit">Продолжить</button>
         </form>
       </div>
     </div>
