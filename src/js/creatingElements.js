@@ -59,5 +59,6 @@ export const changeNickname = ({ userName }) => {
 export const removeSubscriber = (name) => {
   const subscribers = document.querySelectorAll('.subscription__item');
   const delSubscriber = [...subscribers].find((item) => item.textContent === name);
+  if (!delSubscriber) return;
   delSubscriber.remove();
 };

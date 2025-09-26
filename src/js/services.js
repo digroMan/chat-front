@@ -2,7 +2,7 @@ import {
   SSE, SUBSCRIPTION, WS,
 } from './constants';
 import { createMessage, createNewSubscriber, removeSubscriber } from './creatingElements';
-import { deleteCompanion, GLOBAL_STATE, setCompanion } from './store';
+import { deleteCompanion, setCompanion } from './store';
 
 export const launchSSE = () => {
   SSE.addEventListener('open', (e) => {
@@ -55,8 +55,6 @@ export const launchSSE = () => {
   SSE.addEventListener('message', (e) => {
     const { name, deleteClient, add } = JSON.parse(e.data);
 
-    console.log(name, deleteClient, add);
-
     if (add) {
       setCompanion(name);
       createNewSubscriber(name);
@@ -64,7 +62,6 @@ export const launchSSE = () => {
 
     if (deleteClient) {
       deleteCompanion(name);
-      console.log(GLOBAL_STATE.allUsers);
       removeSubscriber(name);
     }
   });
@@ -91,7 +88,6 @@ export const launchWS = () => {
 
   WS.addEventListener('message', (e) => {
     const data = JSON.parse(e.data);
-    console.log(data.chat);
 
     data.chat.forEach((item) => {
       const { message, client, date } = item;
