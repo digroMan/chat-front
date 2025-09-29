@@ -4,7 +4,21 @@ import { toggleClass, toggleHide } from './helpers';
 import { launchSSE, launchWS } from './services';
 import { SUBSCRIPTION, WS } from './constants';
 
+export const removeMessage = (message) => {
+  console.log(message);
+  // const messages = document.querySelectorAll('.chat__message-item');
+  // const targetMessage = [...messages].filter((i) => i.dataset.id === id);
+  // const message = targetMessage[0].querySelector('.chat__message');
+};
+
+export const removeMessage1 = ({ id }) => {
+  const messages = document.querySelectorAll('.chat__message-item');
+  const targetMessage = [...messages].filter((i) => i.dataset.id === id);
+  const message = targetMessage[0].querySelector('.chat__message');
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+  // TODO: Переместить все handlers в отдельные файлы???
   const submitNickname = (e) => {
     e.preventDefault();
     const modal = document.querySelector('.modal');
@@ -98,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('click', hideError);
   };
 
-  function handleCreateMessage() {
+  const handleCreateMessage = () => {
     const form = document.forms['create-message'];
     const input = form.querySelector('.form__input');
     const errorContainer = form.querySelector('.form__validator-container');
@@ -114,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', submitMessage);
     input.addEventListener('click', hideError);
-  }
+  };
 
   try {
     if (document.forms.length === 0) throw new Error('отсутствуют формы на странице');

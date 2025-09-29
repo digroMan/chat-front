@@ -1,3 +1,4 @@
+import { handleRemoveMessage } from './handlers';
 import { formatDate } from './helpers';
 import { GLOBAL_STATE } from './store';
 
@@ -11,7 +12,40 @@ export function createNewSubscriber(name) {
   subscriptions.appendChild(subscriber);
 }
 
-export function createMessage({ message, date, client }) {
+const createRemoveButton = ({ parent, id }) => {
+  const remove = document.createElement('button');
+  remove.setAttribute('type', 'button');
+  remove.classList.add('chat__message-remove');
+  remove.dataset.id = id;
+  remove.textContent = 'Удалить';
+  remove.addEventListener('click', handleRemoveMessage);
+  parent.appendChild(remove);
+};
+
+const createMessageText = ({
+  deleted, message, id, parent,
+}) => {
+  const text = document.createElement('p');
+  text.classList.add('chat__message');
+  if (deleted) {
+    text.classList.add('chat__message_italic');
+    text.textContent = 'Сообщение удалено';
+  }
+  if (!deleted) {
+    text.textContent = message;
+    createRemoveButton({ parent, id });
+  }
+
+  return text;
+};
+
+export const createMessage = ({
+  id,
+  message,
+  client,
+  date,
+  deleted,
+}) => {
   const chat = document.querySelector('.chat__messages');
   const container = document.querySelector('.chat__container');
 
@@ -20,6 +54,7 @@ export function createMessage({ message, date, client }) {
 
   nickname.classList.add('chat__message-nickname');
   itemMessage.classList.add('chat__message-item');
+  itemMessage.dataset.id = id;
 
   if (client !== GLOBAL_STATE.userName) nickname.textContent = client;
   if (client === GLOBAL_STATE.userName) {
@@ -29,20 +64,20 @@ export function createMessage({ message, date, client }) {
 
   const time = document.createElement('time');
   time.classList.add('chat__message-time');
-  const timeSendingMessage = new Date(date);
+  const timeSendingMessage = new Date(parseInt(date, 10));
   time.textContent = ` ${formatDate(timeSendingMessage)}`;
   nickname.appendChild(time);
 
-  const text = document.createElement('p');
-  text.classList.add('chat__message');
-  text.textContent = message;
+  const text = createMessageText({
+    deleted, message, id, parent: nickname,
+  });
 
   itemMessage.appendChild(nickname);
   itemMessage.appendChild(text);
 
   chat.appendChild(itemMessage);
   container.scrollTop = container.scrollHeight;
-}
+};
 
 export const changeNickname = ({ userName }) => {
   if (GLOBAL_STATE.allUsers.every((i) => i !== userName)) throw new Error('юзера с данным именем нет в общем списке юзеров');

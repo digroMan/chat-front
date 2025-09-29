@@ -51,6 +51,7 @@
 
     // .chat__message-nickname
     &__message-nickname {
+        display: flex;
         color: $colorGrey3Cool;
     }
 
@@ -59,10 +60,27 @@
         color: $colorGrey3Cool;
     }
 
+    // .chat__message-remove
+    &__message-remove{
+        text-decoration: underline;
+        font-size: 14px;
+        color: $colorBlue1;
+        cursor: pointer;
+        background: none;
+        font-weight: 400;
+        margin-left: auto;
+        text-underline-position: under;
+    }
+
     // .chat__message
     &__message {
         color: $colorBlackCool;
         font-weight: 500;
+
+        // .chat__message_italic
+        &_italic{
+            font-style: italic;
+        }
     }
 }
 
