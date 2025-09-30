@@ -23,20 +23,21 @@ const createRemoveButton = ({ parent, id }) => {
 };
 
 const createMessageText = ({
-  deleted, message, id, parent,
+  deleted, message, id, parent, client,
 }) => {
-  const text = document.createElement('p');
-  text.classList.add('chat__message');
+  const paragraph = document.createElement('p');
+  paragraph.classList.add('chat__message');
+
   if (deleted) {
-    text.classList.add('chat__message_italic');
-    text.textContent = 'Сообщение удалено';
-  }
-  if (!deleted) {
-    text.textContent = message;
-    createRemoveButton({ parent, id });
+    paragraph.classList.add('chat__message_italic');
+    paragraph.textContent = 'Сообщение удалено';
+    return paragraph;
   }
 
-  return text;
+  if (client === GLOBAL_STATE.userName) createRemoveButton({ parent, id });
+  paragraph.textContent = message;
+
+  return paragraph;
 };
 
 export const createMessage = ({
@@ -46,9 +47,6 @@ export const createMessage = ({
   date,
   deleted,
 }) => {
-  const chat = document.querySelector('.chat__messages');
-  const container = document.querySelector('.chat__container');
-
   const itemMessage = document.createElement('li');
   const nickname = document.createElement('h3');
 
@@ -69,13 +67,26 @@ export const createMessage = ({
   nickname.appendChild(time);
 
   const text = createMessageText({
-    deleted, message, id, parent: nickname,
+    deleted, message, id, parent: nickname, client,
   });
 
   itemMessage.appendChild(nickname);
   itemMessage.appendChild(text);
+  return itemMessage;
+};
 
-  chat.appendChild(itemMessage);
+export const removeMessage = (message) => {
+  const [id, messageData] = Object.entries(message)[0];
+  const newMessage = createMessage({ id, ...messageData });
+  const messages = document.querySelectorAll('.chat__message-item');
+  const deletedMessage = [...messages].find((item) => item.dataset.id === id);
+  deletedMessage.replaceWith(newMessage);
+};
+
+export const insertInChat = ({ element }) => {
+  const chat = document.querySelector('.chat__messages');
+  const container = document.querySelector('.chat__container');
+  chat.appendChild(element);
   container.scrollTop = container.scrollHeight;
 };
 

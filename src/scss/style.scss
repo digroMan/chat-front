@@ -8,7 +8,7 @@
 .chat {
     position: relative;
     box-sizing: border-box;
-    width: 908px;
+    width: 795px;
     height: 583px;
     padding: 64px;
     margin: auto;
@@ -23,7 +23,36 @@
     // .chat__container
     &__container {
         overflow-y: auto;
-        // max-height: 200px;
+        padding-right: 10px;
+
+        &::-webkit-scrollbar-button {
+            width: 5px;
+            height: 0;
+            transform: translateX(-5px);
+          }
+          
+          &::-webkit-scrollbar-track {
+            background-color: $colorGrey4Cool;
+          }
+          
+          &::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            background-color: $colorBlue1;
+          }
+          
+          &::-webkit-scrollbar-thumb:hover {
+            background-color: $colorBlue1;
+          }
+          
+          &::-webkit-resizer {
+            width: 4px;
+            height: 0;
+          }
+          
+          &::-webkit-scrollbar {
+            width: 4px;
+          }
     }
 
     // .chat__messages
@@ -39,6 +68,7 @@
 
     // .chat__message-item
     &__message-item {
+        min-width: 40%;
         width: fit-content;
         border-bottom: solid 1px $colorGrey3Cool;
 
@@ -52,6 +82,7 @@
     // .chat__message-nickname
     &__message-nickname {
         display: flex;
+        column-gap: 10px;
         color: $colorGrey3Cool;
     }
 

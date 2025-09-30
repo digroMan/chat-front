@@ -4,19 +4,6 @@ import { toggleClass, toggleHide } from './helpers';
 import { launchSSE, launchWS } from './services';
 import { SUBSCRIPTION, WS } from './constants';
 
-export const removeMessage = (message) => {
-  console.log(message);
-  // const messages = document.querySelectorAll('.chat__message-item');
-  // const targetMessage = [...messages].filter((i) => i.dataset.id === id);
-  // const message = targetMessage[0].querySelector('.chat__message');
-};
-
-export const removeMessage1 = ({ id }) => {
-  const messages = document.querySelectorAll('.chat__message-item');
-  const targetMessage = [...messages].filter((i) => i.dataset.id === id);
-  const message = targetMessage[0].querySelector('.chat__message');
-};
-
 document.addEventListener('DOMContentLoaded', () => {
   // TODO: Переместить все handlers в отдельные файлы???
   const submitNickname = (e) => {
@@ -80,13 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const messageItem = {
+    const data = {
       message,
       client: GLOBAL_STATE.userName,
       date: new Date().getTime(),
     };
-
-    WS.send(JSON.stringify(messageItem));
+    WS.send(JSON.stringify({
+      type: 'add',
+      data,
+    }));
 
     e.target.reset();
   };
