@@ -1,6 +1,7 @@
 import SubscriptionApi from '../api/SubscriptionApi';
 
 export const SERVER_URL = 'http://localhost:7070/';
+// export const SERVER_URL = 'http://192.168.14.55:9000/';
 export const SERVER_URL_WS = `${SERVER_URL}ws`;
 export const SERVER_URL_SSE = `${SERVER_URL}sse`;
 export const SSE = new EventSource(SERVER_URL_SSE);

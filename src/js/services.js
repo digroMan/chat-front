@@ -1,7 +1,9 @@
 import {
   SSE, SUBSCRIPTION, WS,
 } from './constants';
-import { createMessage, createNewSubscriber, removeSubscriber } from './creatingElements';
+import {
+  createMessage, createNewSubscriber, insertInChat, removeSubscriber, removeMessage,
+} from './creatingElements';
 import { deleteCompanion, setCompanion } from './store';
 
 export const launchSSE = () => {
@@ -87,16 +89,45 @@ export const launchWS = () => {
   });
 
   WS.addEventListener('message', (e) => {
-    const data = JSON.parse(e.data);
+    const eventSocket = JSON.parse(e.data);
+    let element;
+    switch (eventSocket.type) {
+      case 'first-load':
+        Object.entries(eventSocket.data).forEach(([id, data]) => {
+          const {
+            message, client, date, deleted,
+          } = data;
+          element = createMessage({
+            date,
+            id,
+            message,
+            client,
+            deleted,
+          });
 
-    data.chat.forEach((item) => {
-      const { message, client, date } = item;
-
-      createMessage({
-        message,
-        client,
-        date,
-      });
-    });
+          insertInChat({ element });
+        });
+        break;
+      case 'add':
+        Object.entries(eventSocket.data).forEach(([id, data]) => {
+          const {
+            message, client, date, deleted,
+          } = data;
+          element = createMessage({
+            date,
+            id,
+            message,
+            client,
+            deleted,
+          });
+          insertInChat({ element });
+        });
+        break;
+      case 'delete':
+        removeMessage(eventSocket.data);
+        break;
+      default:
+        break;
+    }
   });
 };

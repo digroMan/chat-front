@@ -5,6 +5,7 @@ import { launchSSE, launchWS } from './services';
 import { SUBSCRIPTION, WS } from './constants';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // TODO: Переместить все handlers в отдельные файлы???
   const submitNickname = (e) => {
     e.preventDefault();
     const modal = document.querySelector('.modal');
@@ -66,13 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const messageItem = {
+    const data = {
       message,
       client: GLOBAL_STATE.userName,
       date: new Date().getTime(),
     };
-
-    WS.send(JSON.stringify(messageItem));
+    WS.send(JSON.stringify({
+      type: 'add',
+      data,
+    }));
 
     e.target.reset();
   };
@@ -98,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('click', hideError);
   };
 
-  function handleCreateMessage() {
+  const handleCreateMessage = () => {
     const form = document.forms['create-message'];
     const input = form.querySelector('.form__input');
     const errorContainer = form.querySelector('.form__validator-container');
@@ -114,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', submitMessage);
     input.addEventListener('click', hideError);
-  }
+  };
 
   try {
     if (document.forms.length === 0) throw new Error('отсутствуют формы на странице');
