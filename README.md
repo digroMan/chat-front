@@ -5,7 +5,12 @@
 <br>
 
 Реализованы клиентская и [серверная](https://github.com/Go5710264/chat-back.git) части. 
-В серверной части применяются технологии **WebSocket** и **ServerSentEvents**.
+
+<br>
+
+Full stack приложение по обмену сообщениями. Backend на nodeJS (фреймворк koa). Frontend на чистом JS, sCss
+Двусторонняя доставка JSON-данных осуществляется через **websocket**. 
+Односторонняя доставка JSON-данных осуществляется через **server-send events**.
 
 <br>
 
