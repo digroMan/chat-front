@@ -1,3 +1,4 @@
+import MODAL from './components/Modal';
 import { handleRemoveMessage } from './handlers';
 import { formatDate } from './helpers';
 import { GLOBAL_STATE } from './store';
@@ -18,7 +19,32 @@ const createRemoveButton = ({ parent, id }) => {
   remove.classList.add('chat__message-remove');
   remove.dataset.id = id;
   remove.textContent = 'Удалить';
-  remove.addEventListener('click', handleRemoveMessage);
+
+  const handlerSubmitModal = () => {
+    handleRemoveMessage();
+    MODAL.close();
+  };
+
+  const options = {
+    title: 'Удалить сообщение?',
+    text: 'Cообщение не восстановить.',
+    submit: {
+      text: 'Да',
+      handler: handlerSubmitModal,
+
+    },
+    cancel: {
+      text: 'Нет',
+      handler: MODAL.close,
+    },
+    clickOverlay: MODAL.close,
+  };
+
+  const handlerOpeningModal = () => MODAL.open({ options });
+
+  remove.addEventListener('click', handlerOpeningModal);
+
+  // remove.addEventListener('click', handleRemoveMessage);
   parent.appendChild(remove);
 };
 

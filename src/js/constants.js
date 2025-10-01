@@ -1,4 +1,4 @@
-import SubscriptionApi from '../api/SubscriptionApi';
+import SubscriptionApi from './api/SubscriptionApi';
 
 export const SERVER_URL = 'http://localhost:7070/';
 // export const SERVER_URL = 'http://192.168.14.55:9000/';

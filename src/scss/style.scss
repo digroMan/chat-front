@@ -193,8 +193,14 @@
     // .form_flex
     &_flex {
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
         row-gap: 13px;
+    }
+
+    // .form_del-message
+    &_del-message{
+        width: 250px;
     }
 
     // .form__fieldset
@@ -204,6 +210,11 @@
         flex-direction: column;
         margin-bottom: 13px;
         border: none;
+
+        // .form__fieldset_mr-bottom-none
+        &_mr-bottom-none {
+            margin-bottom: 0;
+        }
     }
 
     // .form__label
@@ -215,6 +226,18 @@
         font-weight: 500;
         color: $colorBlackCool;
         text-transform: uppercase;
+    }
+
+    // .form__text
+    &__text{
+        
+        font-family: $fontUbuntu;
+        font-weight: 400;
+        line-height: 1.2;
+        font-size: 16px;
+        text-align: center;
+
+        color: $colorTextGrey;
     }
 
     // .form__input

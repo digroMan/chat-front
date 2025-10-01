@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
     if (document.forms.length === 0) throw new Error('отсутствуют формы на странице');
-    handleSetNickname();
+    // handleSetNickname();
     handleCreateMessage();
   } catch (error) {
     console.warn(`Ошибка в инициализации форм: ${error.message}`);
