@@ -172,6 +172,9 @@
 
     // .modal__content
     &__content {
+        position: relative;
+        z-index: 1;
+        
         padding: 16px;
 
         border: none;
@@ -230,7 +233,6 @@
 
     // .form__text
     &__text{
-        
         font-family: $fontUbuntu;
         font-weight: 400;
         line-height: 1.2;

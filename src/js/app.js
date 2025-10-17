@@ -3,6 +3,7 @@ import { GLOBAL_STATE, setUserName } from './store';
 import { toggleClass, toggleHide } from './helpers';
 import { launchSSE, launchWS } from './services';
 import { SUBSCRIPTION, WS } from './constants';
+import MODAL from './components/Modal';
 
 document.addEventListener('DOMContentLoaded', () => {
   // TODO: Переместить все handlers в отдельные файлы???
@@ -100,6 +101,29 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', submitNickname);
     input.addEventListener('click', hideError);
   };
+
+  // const handlerSubmitModal = (e) => {
+  //   e.preventDefault();
+  //   // handleRemoveMessage(e);
+  //   MODAL.close();
+  // };
+
+  // const options = {
+  //   id,
+  //   title: '',
+  //   text: 'Cообщение не восстановить.',
+  //   submit: {
+  //     text: 'Да',
+  //     handler: handlerSubmitModal,
+  //   },
+  //   cancel: {
+  //     text: 'Нет',
+  //     handler: MODAL.close,
+  //   },
+  //   clickOverlay: MODAL.close,
+  // };
+
+  // const handlerOpeningModal = () => MODAL.open({ options });
 
   const handleCreateMessage = () => {
     const form = document.forms['create-message'];

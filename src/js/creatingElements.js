@@ -17,21 +17,21 @@ const createRemoveButton = ({ parent, id }) => {
   const remove = document.createElement('button');
   remove.setAttribute('type', 'button');
   remove.classList.add('chat__message-remove');
-  remove.dataset.id = id;
   remove.textContent = 'Удалить';
 
-  const handlerSubmitModal = () => {
-    handleRemoveMessage();
+  const handlerSubmitModal = (e) => {
+    e.preventDefault();
+    handleRemoveMessage(e);
     MODAL.close();
   };
 
   const options = {
+    id,
     title: 'Удалить сообщение?',
     text: 'Cообщение не восстановить.',
     submit: {
       text: 'Да',
       handler: handlerSubmitModal,
-
     },
     cancel: {
       text: 'Нет',
@@ -43,8 +43,6 @@ const createRemoveButton = ({ parent, id }) => {
   const handlerOpeningModal = () => MODAL.open({ options });
 
   remove.addEventListener('click', handlerOpeningModal);
-
-  // remove.addEventListener('click', handleRemoveMessage);
   parent.appendChild(remove);
 };
 
