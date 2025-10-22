@@ -9,13 +9,26 @@ const selectorsForModal = {
     submit: ['form__button', 'form__button_submit'],
     cancel: ['form__button', 'form__button_cancel'],
   },
+  input: ['form__input', 'form__input_align-center'],
 };
 
-const createElem = ({ tag, selectors, text = false }) => {
+const convertButton = ({ element, type, handler }) => {
+  element.setAttribute('type', type);
+  element.addEventListener('click', handler);
+};
+
+const createElem = ({
+  tag,
+  selectors,
+  text = false,
+  type = false,
+  handlerClick: handler = false,
+}) => {
   const element = document.createElement(tag);
   if (typeof selectors === 'string') element.classList.add(selectors);
   if (Array.isArray(selectors)) selectors.forEach((item) => element.classList.add(item));
   if (text) element.textContent = text;
+  if (tag === 'button' && type && handler) convertButton({ element, type, handler });
   return element;
 };
 
@@ -59,7 +72,7 @@ class Modal {
 
   createForm() {
     const form = createElem({ tag: 'form', selectors: this.selectors.form });
-    form.dataset.id = this.options.id;
+    if (this.options.id) form.dataset.id = this.options.id;
 
     const fieldset = createElem({ tag: 'fieldset', selectors: this.selectors.fieldset });
     const label = document.createElement('label');
@@ -73,17 +86,29 @@ class Modal {
     fieldset.append(paragraph);
     form.append(fieldset);
 
-    const cancel = createElem({ tag: 'button', selectors: this.selectors.button.cancel, text: this.options.cancel.text });
-    cancel.setAttribute('type', 'button');
-    cancel.addEventListener('click', this.options.cancel.handler.bind(this));
+    if (this.options.cancel) {
+      const cancel = createElem({
+        tag: 'button',
+        selectors: this.selectors.button.cancel,
+        text: this.options.cancel.text,
+        handlerClick: this.options.cancel.handler.bind(this),
+        type: 'button',
+      });
+      form.appendChild(cancel);
+    }
 
-    const submit = createElem({ tag: 'button', selectors: this.selectors.button.submit, text: this.options.submit.text });
-    submit.setAttribute('type', 'submit');
-    submit.addEventListener('click', (e) => e.stopPropagation());
-    form.addEventListener('submit', this.options.submit.handler);
+    if (this.options.submit) {
+      const submit = createElem({
+        tag: 'button',
+        selectors: this.selectors.button.submit,
+        text: this.options.submit.text,
+        handlerClick: (e) => e.stopPropagation(),
+        type: 'submit',
+      });
+      form.addEventListener('submit', this.options.submit.handler);
+      form.appendChild(submit);
+    }
 
-    form.appendChild(cancel);
-    form.appendChild(submit);
     return form;
   }
 }

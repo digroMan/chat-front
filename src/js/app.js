@@ -108,22 +108,22 @@ document.addEventListener('DOMContentLoaded', () => {
   //   MODAL.close();
   // };
 
-  // const options = {
-  //   id,
-  //   title: '',
-  //   text: 'Cообщение не восстановить.',
-  //   submit: {
-  //     text: 'Да',
-  //     handler: handlerSubmitModal,
-  //   },
-  //   cancel: {
-  //     text: 'Нет',
-  //     handler: MODAL.close,
-  //   },
-  //   clickOverlay: MODAL.close,
-  // };
+  const options = {
+    // id,
+    title: 'Введите никнейм',
+    text: 'Введите никнейм',
+    submit: {
+      text: 'Продолжить',
+      handler: submitNickname,
+    },
+    input: {
+      placeholder: 'Ваше имя в сети',
+      type: 'text',
+    },
+    clickOverlay: MODAL.close,
+  };
 
-  // const handlerOpeningModal = () => MODAL.open({ options });
+  const handlerOpeningModal = () => MODAL.open({ options });
 
   const handleCreateMessage = () => {
     const form = document.forms['create-message'];
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   try {
     if (document.forms.length === 0) throw new Error('отсутствуют формы на странице');
-    // handleSetNickname();
+    handlerOpeningModal();
     handleCreateMessage();
   } catch (error) {
     console.warn(`Ошибка в инициализации форм: ${error.message}`);
