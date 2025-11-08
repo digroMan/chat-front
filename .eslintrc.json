@@ -16,8 +16,7 @@
         {
           "devDependencies": true
         }
-      ],
-      "linebreak-style": ["error", "windows"]
+      ]
     },
     "globals": {
       "api":"writable"
