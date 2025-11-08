@@ -12,7 +12,6 @@ export const launchSSE = () => {
 
     SUBSCRIPTION.getSubscribers().then((result) => {
       result
-        .map((item) => item.name)
         .forEach((name) => {
           setCompanion(name);
           createNewSubscriber(name);
@@ -56,7 +55,7 @@ export const launchSSE = () => {
 
   SSE.addEventListener('message', (e) => {
     const { name, deleteClient, add } = JSON.parse(e.data);
-
+    console.log(name, deleteClient, add);
     if (add) {
       setCompanion(name);
       createNewSubscriber(name);

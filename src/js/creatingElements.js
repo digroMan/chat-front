@@ -91,7 +91,7 @@ export const insertInChat = ({ element }) => {
 };
 
 export const changeNickname = ({ userName }) => {
-  if (GLOBAL_STATE.allUsers.every((i) => i !== userName)) throw new Error('юзера с данным именем нет в общем списке юзеров');
+  if (GLOBAL_STATE.allUsers.every((i) => i !== userName)) throw new Error('Юзера с данным именем нет в общем списке юзеров');
 
   const subscribers = document.querySelectorAll('.subscription__item');
   const currentUser = [...subscribers].find(
