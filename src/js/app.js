@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.addEventListener('beforeunload', () => {
+    console.log(GLOBAL_STATE.userName);
     if (!GLOBAL_STATE.userName) return;
     SUBSCRIPTION.remove(GLOBAL_STATE.userName);
   });
